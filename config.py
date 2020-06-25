@@ -1,18 +1,26 @@
 from ConfigParser import ConfigParser
 
-import sys
+import os, sys
 from ant.core import log
 from BtAtsPowerCalculator import BtAtsPowerCalculator
+from CycleOpsFluid2PowerCalculator import CycleOpsFluid2PowerCalculator
+from GenericFluidPowerCalculator import GenericFluidPowerCalculator
+from GenericMagneticPowerCalculator import GenericMagneticPowerCalculator
 from KurtKineticPowerCalculator import KurtKineticPowerCalculator
 from TacxBlueMotionPowerCalculator import TacxBlueMotionPowerCalculator
-from CycleOpsFluid2PowerCalculator import CycleOpsFluid2PowerCalculator
 from constants import *
 import hashlib
 
-VPOWER_DEBUG = True
+if getattr(sys, 'frozen', False):
+    # If we're running as a pyinstaller bundle
+    SCRIPT_DIR = os.path.dirname(sys.executable)
+else:
+    SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
+
+VPOWER_DEBUG = False
 
 CONFIG = ConfigParser()
-_CONFIG_FILENAME = 'vpower.cfg'
+_CONFIG_FILENAME = os.path.join(SCRIPT_DIR, 'vpower.cfg')
 # If there's a command-line argument, it's the location of the config file
 if len(sys.argv) > 1:
     _CONFIG_FILENAME = sys.argv[1]
