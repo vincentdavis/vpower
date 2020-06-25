@@ -45,7 +45,7 @@ try:
     # Notify the power meter every time we get a calculated power value
     POWER_CALCULATOR.notify_change(power_meter)
 
-    print "Main wait loop"
+    print "Main wait loop (press Ctrl + C to close)"
     while True:
         try:
             time.sleep(1)
