@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import time
+import win32api
 import Tkinter as tk
 
 from ant.core import driver
@@ -10,6 +11,17 @@ from config import DEBUG, LOG, NETKEY, POWER_SENSOR_ID
 
 antnode = None
 power_meter = None
+
+def on_exit(sig, func=None):
+    if power_meter:
+        print "Closing power meter"
+        power_meter.close()
+        power_meter.unassign()
+    if antnode:
+        print "Stopping ANT node"
+        antnode.stop()
+
+win32api.SetConsoleCtrlHandler(on_exit, True)
 
 try:
     stick = driver.USB2Driver(None, log=LOG, debug=DEBUG)
