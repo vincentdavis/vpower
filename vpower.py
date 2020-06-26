@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 import time
+import win32api
 
 from ant.core import driver
 from ant.core import node
@@ -11,6 +12,21 @@ from config import DEBUG, LOG, NETKEY, POWER_CALCULATOR, POWER_SENSOR_ID, SENSOR
 antnode = None
 speed_sensor = None
 power_meter = None
+
+def on_exit(sig, func=None):
+    if speed_sensor:
+        print "Closing speed sensor"
+        speed_sensor.close()
+        speed_sensor.unassign()
+    if power_meter:
+        print "Closing power meter"
+        power_meter.close()
+        power_meter.unassign()
+    if antnode:
+        print "Stopping ANT node"
+        antnode.stop()
+
+win32api.SetConsoleCtrlHandler(on_exit, True)
 
 try:
     print "Using " + POWER_CALCULATOR.__class__.__name__
@@ -45,7 +61,7 @@ try:
     # Notify the power meter every time we get a calculated power value
     POWER_CALCULATOR.notify_change(power_meter)
 
-    print "Main wait loop (press Ctrl + C to close)"
+    print "Main wait loop"
     while True:
         try:
             time.sleep(1)
