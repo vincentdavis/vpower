@@ -13,7 +13,7 @@ antnode = None
 speed_sensor = None
 power_meter = None
 
-def on_exit(sig, func=None):
+def close_all():
     if speed_sensor:
         print "Closing speed sensor"
         speed_sensor.close()
@@ -25,6 +25,9 @@ def on_exit(sig, func=None):
     if antnode:
         print "Stopping ANT node"
         antnode.stop()
+
+def on_exit(sig, func=None):
+    close_all()
 
 win32api.SetConsoleCtrlHandler(on_exit, True)
 
@@ -71,14 +74,4 @@ try:
 except Exception as e:
     print "Exception: "+repr(e)
 finally:
-    if speed_sensor:
-        print "Closing speed sensor"
-        speed_sensor.close()
-        speed_sensor.unassign()
-    if power_meter:
-        print "Closing power meter"
-        power_meter.close()
-        power_meter.unassign()
-    if antnode:
-        print "Stopping ANT node"
-        antnode.stop()
+    close_all()
