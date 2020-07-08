@@ -4,10 +4,39 @@
 
 This project implements "virtual power" for bicycle turbo trainers where the trainer or the attached bike has an ANT+ 
 speed sensor. The calculated power is broadcasted as such on ANT+ so that any head unit or app will see it as a power
-meter. Currently supported trainers are the 
-[Bike Technologies Advanced Training System (BT-ATS)](http://www.biketechnologies.com/bt-advanced-training-system/),
-the [Kurt Kinetic range of fluid trainers](https://kurtkinetic.com/products/trainers/) and the
-[Tacx Blue Motion](https://tacx.com/product/blue-motion/).
+meter. This version (forked from vpower by Darren Hague) is adapted to run on Windows. Even if the receiver app runs
+on the same computer, you will need two ANT+ sticks, because one device can't be used by two apps simultaneously.
+
+Included power calculators:
+* [Bike Technologies Advanced Training System (BT-ATS)](http://www.biketechnologies.com/bt-advanced-training-system/)
+* [CycleOps Fluid2](https://www.cycleops.com/product/fluid2)
+* [Generic Fluid](http://www.powercurvesensor.com/cycling-trainer-power-curves/)
+* [Generic Magnetic (medium resistance)](http://www.powercurvesensor.com/cycling-trainer-power-curves/)
+* [Kurt Kinetic range of fluid trainers](https://kurtkinetic.com/products/trainers/)
+* [Tacx Blue Motion](https://tacx.com/product/blue-motion/)
+
+### Running vpower on Windows
+
+Download the [standalone executable](https://github.com/oldnapalm/vpower/releases/tag/v0.1)
+
+Configure speed sensor, power calculator and wheel circumference in **vpower.cfg**
+
+Install the libusb-win32 driver for the ANT+ device, it can be easily done using [Zadig](https://zadig.akeo.ie/)
+* Options - List All Devices
+* Select ANT+ stick
+* Select libusb-win32 driver and click Replace Driver
+
+![Zadig](https://github.com/oldnapalm/vpower/blob/master/images/Zadig.PNG?raw=true)
+
+Supported devices:
+* [ANTUSB2 Stick](http://www.thisisant.com/developer/components/antusb2/) (0fcf:1008: Dynastream Innovations, Inc.)
+* [ANTUSB-m Stick](http://www.thisisant.com/developer/components/antusb-m/) (0fcf:1009: Dynastream Innovations, Inc.)
+
+For long sensor ID disregard most significant bit
+
+![Long sensor ID](https://github.com/oldnapalm/vpower/blob/master/images/longID.png?raw=true)
+
+### The following information is from the original vpower repository, to run on Raspberry Pi or any Linux computer
 
 ![Prototype vPower unit in action on a BT-ATS trainer](https://github.com/dhague/vpower/raw/master/images/vPower%20BT-ATS-small.JPG)
 
