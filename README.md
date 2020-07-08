@@ -15,7 +15,10 @@ Included power calculators:
 * [Kurt Kinetic range of fluid trainers](https://kurtkinetic.com/products/trainers/)
 * [Tacx Blue Motion](https://tacx.com/product/blue-motion/)
 
-### Running vpower on Windows
+It is easy to add a new trainer - just subclass `AbstractPowerCalculator` and implement the method `power_from_speed(revs_per_sec)`.
+If your trainer is not there, please add it and submit a pull request.
+
+## Running on Windows
 
 * Download the [standalone executable](https://github.com/oldnapalm/vpower/releases/tag/v0.1)
 
@@ -32,7 +35,7 @@ Supported devices:
 * [ANTUSB2 Stick](http://www.thisisant.com/developer/components/antusb2/) (0fcf:1008: Dynastream Innovations, Inc.)
 * [ANTUSB-m Stick](http://www.thisisant.com/developer/components/antusb-m/) (0fcf:1009: Dynastream Innovations, Inc.)
 
-### Running from source
+## Running from source
 
 * Install [Python 2](https://www.python.org/downloads/) if not already installed
 * Clone or download [python-ant](https://github.com/oldnapalm/python-ant) repo
@@ -41,12 +44,9 @@ Supported devices:
 * In a Command Prompt within the repo directory, run ``C:\Python27\python.exe vpower.py`` (or open vpower.py directly
 from Windows Explorer if .py file type is associated with python.exe)
 
-### The following information is from the original vpower repository, to run on Raspberry Pi or any Linux computer
+## Running on Raspberry Pi
 
 ![Prototype vPower unit in action on a BT-ATS trainer](https://github.com/dhague/vpower/raw/master/images/vPower%20BT-ATS-small.JPG)
-
-It is easy to add a new trainer - just subclass `AbstractPowerCalculator` and implement the method `power_from_speed(revs_per_sec)`.
-If your trainer is not there, please add it and submit a pull request.
 
 ## Introduction
 Many turbos, such as the Kurt Kinetic or Bike Technologies Advanced Training System (BT-ATS) have well-known and 
