@@ -35,7 +35,7 @@ Supported devices:
 * [ANTUSB2 Stick](http://www.thisisant.com/developer/components/antusb2/) (0fcf:1008: Dynastream Innovations, Inc.)
 * [ANTUSB-m Stick](http://www.thisisant.com/developer/components/antusb-m/) (0fcf:1009: Dynastream Innovations, Inc.)
 
-## Running from source
+### Running from source
 
 * Install [Python 2](https://www.python.org/downloads/) if not already installed
 * Clone or download [python-ant](https://github.com/oldnapalm/python-ant) repo
