@@ -17,16 +17,16 @@ Included power calculators:
 
 ### Running vpower on Windows
 
-Download the [standalone executable](https://github.com/oldnapalm/vpower/releases/tag/v0.1)
+* Download the [standalone executable](https://github.com/oldnapalm/vpower/releases/tag/v0.1)
 
-Configure speed sensor, power calculator and wheel circumference in **vpower.cfg**
+* Configure speed sensor, power calculator and wheel circumference in **vpower.cfg**
 
-Install the libusb-win32 driver for the ANT+ device, it can be easily done using [Zadig](https://zadig.akeo.ie/)
-* Options - List All Devices
-* Select ANT+ stick
-* Select libusb-win32 driver and click Replace Driver
+* Install the libusb-win32 driver for the ANT+ device, it can be easily done using [Zadig](https://zadig.akeo.ie/)
+  * Options - List All Devices
+  * Select ANT+ stick
+  * Select libusb-win32 driver and click Replace Driver
 
-![Zadig](https://github.com/oldnapalm/vpower/blob/master/images/Zadig.PNG?raw=true)
+  ![Zadig](https://github.com/oldnapalm/vpower/blob/master/images/Zadig.PNG?raw=true)
 
 Supported devices:
 * [ANTUSB2 Stick](http://www.thisisant.com/developer/components/antusb2/) (0fcf:1008: Dynastream Innovations, Inc.)
@@ -35,6 +35,15 @@ Supported devices:
 For long sensor ID disregard most significant bit
 
 ![Long sensor ID](https://github.com/oldnapalm/vpower/blob/master/images/longID.png?raw=true)
+
+### Running from source
+
+* Install [Python 2](https://www.python.org/downloads/) if not already installed
+* Clone or download [python-ant](https://github.com/oldnapalm/python-ant) repo
+* In a Command Prompt within python-ant repo directory, run ``C:\Python27\python.exe setup.py install``
+* Clone or download this repo
+* In a Command Prompt within the repo directory, run ``C:\Python27\python.exe vpower.py`` (or open vpower.py directly
+from Windows Explorer if .py file type is associated with python.exe)
 
 ### The following information is from the original vpower repository, to run on Raspberry Pi or any Linux computer
 
