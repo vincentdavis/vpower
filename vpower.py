@@ -41,7 +41,7 @@ try:
     print "Starting speed sensor"
     try:
         # Create the speed sensor object and open it
-        speed_sensor = SpeedCadenceSensorRx(antnode, SENSOR_TYPE, SPEED_SENSOR_ID)
+        speed_sensor = SpeedCadenceSensorRx(antnode, SENSOR_TYPE, SPEED_SENSOR_ID & 0xffff)
         speed_sensor.open()
         # Notify the power calculator every time we get a speed event
         speed_sensor.notify_change(POWER_CALCULATOR)
