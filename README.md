@@ -7,7 +7,7 @@ speed sensor. The calculated power is broadcasted as such on ANT+ so that any he
 meter. This version (forked from vpower by Darren Hague) is adapted to run on Windows. Even if the receiver app runs
 on the same computer, you will need two ANT+ sticks, because one device can't be used by two apps simultaneously.
 
-Included power calculators:
+Currently supported trainers:
 * [Bike Technologies Advanced Training System (BT-ATS)](http://www.biketechnologies.com/bt-advanced-training-system/)
 * [CycleOps Fluid2](https://www.cycleops.com/product/fluid2)
 * [Generic Fluid](http://www.powercurvesensor.com/cycling-trainer-power-curves/)
