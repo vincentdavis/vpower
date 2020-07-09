@@ -73,5 +73,6 @@ try:
 
 except Exception as e:
     print "Exception: "+repr(e)
+    raw_input()
 finally:
     close_all()
