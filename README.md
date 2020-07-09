@@ -44,4 +44,10 @@ Supported devices:
 * In a Command Prompt within the repo directory, run ``C:\Python27\python.exe vpower.py`` (or open vpower.py directly
 from Windows Explorer if .py file type is associated with python.exe)
 
+## Troubleshooting
+
+* USBError: could not claim interface
+  * Make sure the device is not in use by other app
+  * Unplug and replug the ANT+ stick
+
 Original [README.md](https://github.com/dhague/vpower/blob/master/README.md)
