@@ -26,6 +26,9 @@ def on_exit(sig, func=None):
 
 win32api.SetConsoleCtrlHandler(on_exit, True)
 
+def disable_event():
+    pass
+
 try:
     stick = driver.USB2Driver(None, log=LOG, debug=DEBUG)
     antnode = node.Node(stick)
@@ -46,7 +49,9 @@ try:
     master = tk.Tk()
     master.title("Bot")
     master.geometry("200x50")
+    master.resizable(False, False)
     master.call('wm', 'attributes', '.', '-topmost', '1')
+    master.protocol("WM_DELETE_WINDOW", disable_event)
     w = tk.Scale(master, from_=0, to=1000, length=200, orient=tk.HORIZONTAL)
     w.pack()
 
@@ -64,7 +69,8 @@ try:
         master.update_idletasks()
         master.update()
 
-except:
-    pass
+except Exception as e:
+    print "Exception: "+repr(e)
+    raw_input()
 finally:
     close_all()
