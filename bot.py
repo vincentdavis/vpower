@@ -12,7 +12,7 @@ from config import DEBUG, LOG, NETKEY, POWER_SENSOR_ID
 antnode = None
 power_meter = None
 
-def close_all():
+def on_exit(sig, func=None):
     if power_meter:
         print "Closing power meter"
         power_meter.close()
@@ -20,9 +20,6 @@ def close_all():
     if antnode:
         print "Stopping ANT node"
         antnode.stop()
-
-def on_exit(sig, func=None):
-    close_all()
 
 win32api.SetConsoleCtrlHandler(on_exit, True)
 
@@ -61,16 +58,17 @@ try:
 
     print "Main wait loop"
     while True:
-        power = w.get()
-        t = int(time.time())
-        if power and t >= last + 1:
-            power_meter.update(power)
-        last = t
-        master.update_idletasks()
-        master.update()
+        try:
+            power = w.get()
+            t = int(time.time())
+            if power and t >= last + 1:
+                power_meter.update(power)
+            last = t
+            master.update_idletasks()
+            master.update()
+        except (KeyboardInterrupt, SystemExit):
+            break
 
 except Exception as e:
     print "Exception: "+repr(e)
     raw_input()
-finally:
-    close_all()
