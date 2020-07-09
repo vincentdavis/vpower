@@ -49,5 +49,7 @@ from Windows Explorer if .py file type is associated with python.exe)
 * USBError: could not claim interface
   * Make sure the device is not in use by other app
   * Unplug and replug the ANT+ stick
+* Stuck on "Starting ANT node"
+  * Unplug and replug the ANT+ stick
 
 Original [README.md](https://github.com/dhague/vpower/blob/master/README.md)
