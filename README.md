@@ -29,8 +29,6 @@ If your trainer is not there, please add it and submit a pull request.
   * Select ANT+ stick
   * Select libusb-win32 driver and click Replace Driver
 
-  ![Zadig](https://github.com/oldnapalm/vpower/blob/master/images/Zadig.PNG?raw=true)
-
 Supported devices:
 * [ANTUSB2 Stick](http://www.thisisant.com/developer/components/antusb2/) (0fcf:1008: Dynastream Innovations, Inc.)
 * [ANTUSB-m Stick](http://www.thisisant.com/developer/components/antusb-m/) (0fcf:1009: Dynastream Innovations, Inc.)
