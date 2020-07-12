@@ -33,14 +33,13 @@ Supported devices:
 * [ANTUSB2 Stick](http://www.thisisant.com/developer/components/antusb2/) (0fcf:1008: Dynastream Innovations, Inc.)
 * [ANTUSB-m Stick](http://www.thisisant.com/developer/components/antusb-m/) (0fcf:1009: Dynastream Innovations, Inc.)
 
-### Running from source
+### Running from source code
 
 * Install [Python 2](https://www.python.org/downloads/) if not already installed
 * Clone or download [python-ant](https://github.com/oldnapalm/python-ant) repo
-* In a Command Prompt within python-ant repo directory, run ``C:\Python27\python.exe setup.py install``
+* Open Command Prompt, CD to the python-ant repo directory and run ``C:\Python27\python.exe setup.py install``
 * Clone or download this repo
-* In a Command Prompt within the repo directory, run ``C:\Python27\python.exe vpower.py`` (or open vpower.py directly
-from Windows Explorer if .py file type is associated with python.exe)
+* CD to the repo directory and run ``C:\Python27\python.exe vpower.py``
 
 ## Troubleshooting
 
