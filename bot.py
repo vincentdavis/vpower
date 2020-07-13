@@ -1,10 +1,13 @@
 #!/usr/bin/env python
+import sys
 import time
 import win32api
-import Tkinter as tk
+import tkinter as tk
 
 from ant.core import driver
 from ant.core import node
+
+from usb.core import find
 
 from PowerMeterTx import PowerMeterTx
 from config import DEBUG, LOG, NETKEY, POWER_SENSOR_ID
@@ -14,11 +17,11 @@ power_meter = None
 
 def on_exit(sig, func=None):
     if power_meter:
-        print "Closing power meter"
+        print("Closing power meter")
         power_meter.close()
         power_meter.unassign()
     if antnode:
-        print "Stopping ANT node"
+        print("Stopping ANT node")
         antnode.stop()
 
 win32api.SetConsoleCtrlHandler(on_exit, True)
@@ -27,20 +30,25 @@ def disable_event():
     pass
 
 try:
-    stick = driver.USB2Driver(None, log=LOG, debug=DEBUG)
+    devs = find(find_all=True)
+    for dev in devs:
+        if dev.idVendor == 0x0fcf and dev.idProduct in [0x1008, 0x1009]:
+            break
+
+    stick = driver.USB2Driver(log=LOG, debug=DEBUG, idProduct=dev.idProduct)
     antnode = node.Node(stick)
-    print "Starting ANT node"
+    print("Starting ANT node")
     antnode.start()
-    key = node.NetworkKey('N:ANT+', NETKEY)
+    key = node.Network(NETKEY, 'N:ANT+')
     antnode.setNetworkKey(0, key)
 
-    print "Starting power meter with ANT+ ID " + repr(POWER_SENSOR_ID)
+    print("Starting power meter with ANT+ ID " + repr(POWER_SENSOR_ID))
     try:
         # Create the power meter object and open it
         power_meter = PowerMeterTx(antnode, POWER_SENSOR_ID)
         power_meter.open()
     except Exception as e:
-        print "power_meter error: " + e.message
+        print("power_meter error: " + repr(e))
         power_meter = None
 
     master = tk.Tk()
@@ -52,11 +60,9 @@ try:
     w = tk.Scale(master, from_=0, to=1000, length=200, orient=tk.HORIZONTAL)
     w.pack()
 
-    t = 0
     last = 0
-    power = 0
 
-    print "Main wait loop"
+    print("Main wait loop")
     while True:
         try:
             power = w.get()
@@ -70,5 +76,6 @@ try:
             break
 
 except Exception as e:
-    print "Exception: "+repr(e)
-    raw_input()
+    print("Exception: " + repr(e))
+    if getattr(sys, 'frozen', False):
+        input()

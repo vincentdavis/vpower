@@ -37,11 +37,12 @@ Supported devices:
 
 ### Running from source code
 
-* Install [Python 2](https://www.python.org/downloads/) if not already installed
+* Install [Python 3](https://www.python.org/downloads/) if not already installed
 * Clone or download [python-ant](https://github.com/oldnapalm/python-ant) repo
-* Open Command Prompt, CD to the python-ant repo directory and run ``C:\Python27\python.exe setup.py install``
+* Open Command Prompt, CD to the python-ant repo directory and run ``python setup.py install``
+* Run ``pip install configparser pywin32``
 * Clone or download this repo
-* CD to the repo directory and run ``C:\Python27\python.exe vpower.py``
+* CD to the repo directory and run ``python vpower.py``
 
 ## Troubleshooting
 

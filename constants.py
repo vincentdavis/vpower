@@ -11,7 +11,7 @@ def getserial():
     # Extract serial from wmic command
     cpuserial = "0000000000000000"
     try:
-        cpuserial = subprocess.check_output('wmic cpu get ProcessorId').split('\n')[1].strip()
+        cpuserial = subprocess.check_output('wmic cpu get ProcessorId').decode().split('\n')[1].strip()
     except:
         cpuserial = "ERROR000000000"
 
