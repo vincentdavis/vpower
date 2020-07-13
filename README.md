@@ -18,6 +18,10 @@ Currently supported trainers:
 It is easy to add a new trainer - just subclass `AbstractPowerCalculator` and implement the method `power_from_speed(revs_per_sec)`.
 If your trainer is not there, please add it and submit a pull request.
 
+Supported devices:
+* [ANTUSB2 Stick](http://www.thisisant.com/developer/components/antusb2/) (0fcf:1008: Dynastream Innovations, Inc.)
+* [ANTUSB-m Stick](http://www.thisisant.com/developer/components/antusb-m/) (0fcf:1009: Dynastream Innovations, Inc.)
+
 ## Running on Windows
 
 * Download the [standalone executable](https://github.com/oldnapalm/vpower/releases/tag/v0.1)
@@ -29,9 +33,7 @@ If your trainer is not there, please add it and submit a pull request.
   * Select ANT+ stick
   * Select libusb-win32 driver and click Replace Driver
 
-Supported devices:
-* [ANTUSB2 Stick](http://www.thisisant.com/developer/components/antusb2/) (0fcf:1008: Dynastream Innovations, Inc.)
-* [ANTUSB-m Stick](http://www.thisisant.com/developer/components/antusb-m/) (0fcf:1009: Dynastream Innovations, Inc.)
+* Run the downloaded executable
 
 ### Running from source code
 
