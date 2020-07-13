@@ -24,7 +24,7 @@ Supported devices:
 
 ## Running on Windows
 
-* Download the [standalone executable](https://github.com/oldnapalm/vpower/releases/tag/v0.1)
+* Download the [standalone executable](https://github.com/oldnapalm/vpower/releases/tag/v0.2)
 
 * Configure speed sensor, power calculator and wheel circumference in **vpower.cfg**
 
