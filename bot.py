@@ -65,11 +65,12 @@ try:
     print("Main wait loop")
     while True:
         try:
-            power = w.get()
             t = int(time.time())
-            if power and t >= last + 1:
-                power_meter.update(power)
-            last = t
+            if t >= last + 1:
+                power = w.get()
+                if power:
+                    power_meter.update(power)
+                last = t
             master.update_idletasks()
             master.update()
         except (KeyboardInterrupt, SystemExit):
