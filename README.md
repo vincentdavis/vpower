@@ -24,16 +24,16 @@ Supported devices:
 
 ## Running on Windows
 
-* Download the [standalone executable](https://github.com/oldnapalm/vpower/releases/tag/v0.2)
-
+* Download the [standalone executable](https://github.com/oldnapalm/vpower/releases)
+  * The bot version is for testing purposes, you can set the power value in a slider
 * Configure speed sensor, power calculator and wheel circumference in **vpower.cfg**
-
+  * You can leave `speed_sensor_id` as zero if there's only one sensor around
 * Install the libusb-win32 driver for the ANT+ device, it can be easily done using [Zadig](https://zadig.akeo.ie/)
   * Options - List All Devices
   * Select ANT+ stick
   * Select libusb-win32 driver and click Replace Driver
-
 * Run the downloaded executable
+  * It will print a `+` sign for each sent power message
 
 ### Running from source code
 
