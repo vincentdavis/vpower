@@ -26,6 +26,7 @@ Supported devices:
 
 * Download the [standalone executable](https://github.com/oldnapalm/vpower/releases)
   * The bot version is for testing purposes, you can set the power value in a slider
+  * The HR version broadcasts power based on heart rate, set the values in the file [zones.csv](https://github.com/oldnapalm/vpower/blob/master/zones.csv)
 * Configure speed sensor, power calculator and wheel circumference in **vpower.cfg**
   * You can leave `speed_sensor_id` as zero if there's only one sensor around
 * Install the libusb-win32 driver for the ANT+ device, it can be easily done using [Zadig](https://zadig.akeo.ie/)
