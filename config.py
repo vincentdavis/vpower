@@ -7,6 +7,7 @@ from CycleOpsFluid2PowerCalculator import CycleOpsFluid2PowerCalculator
 from GenericFluidPowerCalculator import GenericFluidPowerCalculator
 from GenericMagneticPowerCalculator import GenericMagneticPowerCalculator
 from KurtKineticPowerCalculator import KurtKineticPowerCalculator
+from LinearInterpolationPowerCalculator import LinearInterpolationPowerCalculator
 from TacxBlueMotionPowerCalculator import TacxBlueMotionPowerCalculator
 from constants import *
 import hashlib
