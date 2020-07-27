@@ -35,7 +35,6 @@ Supported devices:
   * Select ANT+ stick
   * Select libusb-win32 driver and click Replace Driver
 * Run the downloaded executable
-  * It will print a `+` sign for each sent power message
 
 ### Running from source code
 
