@@ -16,6 +16,10 @@ antnode = None
 speed_sensor = None
 power_meter = None
 
+last_speed = 0
+last_time = 0
+stopped = True
+
 def on_exit(sig, func=None):
     if speed_sensor:
         print("Closing speed sensor")
@@ -72,6 +76,18 @@ try:
     print("Main wait loop")
     while True:
         try:
+            # Workaround for RGT Cycling and GTBikeV
+            # send a zero power message when speed sensor doesn't update for 3 seconds
+            if not stopped:
+                t = int(time.time())
+                if t >= last_time + 3:
+                    if speed_sensor.revsPerSec == last_speed:
+                        power_meter.update(0)
+                        stopped = True
+                    last_speed = speed_sensor.revsPerSec
+                    last_time = t
+            elif power_meter.powerData.instantaneousPower > 0:
+                stopped = False
             time.sleep(1)
         except (KeyboardInterrupt, SystemExit):
             break
