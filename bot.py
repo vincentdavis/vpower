@@ -61,6 +61,7 @@ try:
     w.pack()
 
     last = 0
+    stopped = True
 
     print("Main wait loop")
     while True:
@@ -70,6 +71,10 @@ try:
                 power = w.get()
                 if power:
                     power_meter.update(power)
+                    stopped = False
+                elif not stopped:
+                    power_meter.update(power)
+                    stopped = True
                 last = t
             master.update_idletasks()
             master.update()
