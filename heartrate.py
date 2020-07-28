@@ -22,9 +22,11 @@ else:
 antnode = None
 hr_monitor = None
 power_meter = None
+
 xp = [0]
 yp = [0]
 last = 0
+stopped = True
 
 zones_file = '%s/zones.csv' % SCRIPT_DIR
 if os.path.isfile(zones_file):
@@ -64,11 +66,16 @@ def interp(x_arr, y_arr, x):
 
 def heart_rate_data(computed_heartrate, event_time_ms, rr_interval_ms):
     global last
+    global stopped
     t = int(time.time())
     if t >= last + 1:
         power = int(interp(xp, yp, computed_heartrate))
-        if power and power_meter:
-            power_meter.update(power)
+        if power:
+            if power_meter: power_meter.update(power)
+            stopped = False
+        elif not stopped:
+            if power_meter: power_meter.update(power)
+            stopped = True
         last = t
 
 try:
