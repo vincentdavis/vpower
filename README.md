@@ -12,7 +12,8 @@ The **bot** version is for testing purposes, you can set the power value in a sl
 
 The **heartrate** version broadcasts power based on heart rate, set the values in the file [zones.csv](https://github.com/oldnapalm/vpower/blob/master/zones.csv)
 
-The **row** version supports the [Concept2 Rowing Ergometer](https://www.concept2.com/indoor-rowers) (uses [PyRow](https://github.com/wemakewaves/PyRow))
+The **row** version supports the [Concept2 Rowing Ergometer](https://www.concept2.com/indoor-rowers) (uses [PyRow](https://github.com/wemakewaves/PyRow)).
+Thanks Jonathan Colledge for testing and debugging.
 
 Even if the receiver app runs on the same computer, you will need two ANT+ sticks, because one device can't be used by two apps simultaneously.
 
