@@ -3,7 +3,7 @@
 ## Overview
 
 This project implements "virtual power" for bicycle turbo trainers where the trainer or the attached bike has an ANT+ 
-speed sensor. The calculated power is broadcasted as such on ANT+ so that any head unit or app will see it as a power
+speed sensor. The calculated power is broadcasted as such on ANT+ (using [python-ant](https://github.com/mvillalba/python-ant)) so that any head unit or app will see it as a power
 meter.
 
 This version (forked from vpower by Darren Hague) is adapted to run on Windows.
