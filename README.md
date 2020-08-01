@@ -25,7 +25,7 @@ Supported devices:
 
 ## Running on Windows
 
-* Download the [standalone executable](https://github.com/oldnapalm/vpower/releases)
+* Download the [standalone executable](https://github.com/oldnapalm/vpower/releases/latest)
   * The bot version is for testing purposes, you can set the power value in a slider
   * The HR version broadcasts power based on heart rate, set the values in the file [zones.csv](https://github.com/oldnapalm/vpower/blob/master/zones.csv)
   * The row version supports the Concept2 Rowing Ergometer (uses [PyRow](https://github.com/wemakewaves/PyRow))
