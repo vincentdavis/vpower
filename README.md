@@ -36,7 +36,7 @@ Supported devices:
   * Options - List All Devices
   * Select ANT+ stick
   * Select libusb-win32 driver and click Replace Driver
-  * If using the row version, install the driver for the rower too
+* If using the row version, install the libusb-win32 driver for the rower too
 * Run the downloaded executable
 
 ### Running from source code
