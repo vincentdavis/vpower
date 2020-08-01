@@ -4,12 +4,20 @@
 
 This project implements "virtual power" for bicycle turbo trainers where the trainer or the attached bike has an ANT+ 
 speed sensor. The calculated power is broadcasted as such on ANT+ so that any head unit or app will see it as a power
-meter. This version (forked from vpower by Darren Hague) is adapted to run on Windows. Even if the receiver app runs
-on the same computer, you will need two ANT+ sticks, because one device can't be used by two apps simultaneously.
+meter.
+
+This version (forked from vpower by Darren Hague) is adapted to run on Windows.
+
+The **bot** version is for testing purposes, you can set the power value in a slider.
+
+The **heartrate** version broadcasts power based on heart rate, set the values in the file [zones.csv](https://github.com/oldnapalm/vpower/blob/master/zones.csv)
+
+The **row** version supports the [Concept2 Rowing Ergometer](https://www.concept2.com/indoor-rowers) (uses [PyRow](https://github.com/wemakewaves/PyRow))
+
+Even if the receiver app runs on the same computer, you will need two ANT+ sticks, because one device can't be used by two apps simultaneously.
 
 Currently supported trainers:
 * [Bike Technologies Advanced Training System (BT-ATS)](http://www.biketechnologies.com/bt-advanced-training-system/)
-* [Concept2 Rowing Ergometer](https://www.concept2.com/indoor-rowers)
 * [CycleOps Fluid2](https://www.cycleops.com/product/fluid2)
 * [Generic Fluid](http://www.powercurvesensor.com/cycling-trainer-power-curves/)
 * [Generic Magnetic (medium resistance)](http://www.powercurvesensor.com/cycling-trainer-power-curves/)
@@ -26,9 +34,6 @@ Supported devices:
 ## Running on Windows
 
 * Download the [standalone executable](https://github.com/oldnapalm/vpower/releases/latest)
-  * The bot version is for testing purposes, you can set the power value in a slider
-  * The HR version broadcasts power based on heart rate, set the values in the file [zones.csv](https://github.com/oldnapalm/vpower/blob/master/zones.csv)
-  * The row version supports the Concept2 Rowing Ergometer (uses [PyRow](https://github.com/wemakewaves/PyRow))
 * Configure speed sensor, power calculator and wheel circumference in **vpower.cfg**
   * You can leave `speed_sensor_id` as zero if there's only one sensor around
   * If using `LinearInterpolationPowerCalculator` set speed and power values in the file [curve.csv](https://github.com/oldnapalm/vpower/blob/master/curve.csv)
