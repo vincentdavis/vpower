@@ -9,6 +9,7 @@ on the same computer, you will need two ANT+ sticks, because one device can't be
 
 Currently supported trainers:
 * [Bike Technologies Advanced Training System (BT-ATS)](http://www.biketechnologies.com/bt-advanced-training-system/)
+* [Concept2 Rowing Ergometer](https://www.concept2.com/indoor-rowers)
 * [CycleOps Fluid2](https://www.cycleops.com/product/fluid2)
 * [Generic Fluid](http://www.powercurvesensor.com/cycling-trainer-power-curves/)
 * [Generic Magnetic (medium resistance)](http://www.powercurvesensor.com/cycling-trainer-power-curves/)
@@ -27,6 +28,7 @@ Supported devices:
 * Download the [standalone executable](https://github.com/oldnapalm/vpower/releases)
   * The bot version is for testing purposes, you can set the power value in a slider
   * The HR version broadcasts power based on heart rate, set the values in the file [zones.csv](https://github.com/oldnapalm/vpower/blob/master/zones.csv)
+  * The row version supports the Concept2 Rowing Ergometer (uses [PyRow](https://github.com/wemakewaves/PyRow))
 * Configure speed sensor, power calculator and wheel circumference in **vpower.cfg**
   * You can leave `speed_sensor_id` as zero if there's only one sensor around
   * If using `LinearInterpolationPowerCalculator` set speed and power values in the file [curve.csv](https://github.com/oldnapalm/vpower/blob/master/curve.csv)
@@ -34,6 +36,7 @@ Supported devices:
   * Options - List All Devices
   * Select ANT+ stick
   * Select libusb-win32 driver and click Replace Driver
+  * If using the row version, install the driver for the rower too
 * Run the downloaded executable
 
 ### Running from source code
