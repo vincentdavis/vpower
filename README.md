@@ -6,7 +6,7 @@ This project implements "virtual power" for bicycle turbo trainers where the tra
 speed sensor. The calculated power is broadcasted as such on ANT+ (using [python-ant](https://github.com/mvillalba/python-ant)) so that any head unit or app will see it as a power
 meter.
 
-This version (forked from vpower by Darren Hague) is adapted to run on Windows.
+This version (forked from [vpower](https://github.com/dhague/vpower) by Darren Hague) is adapted to run on Windows.
 
 The **bot** version is for testing purposes, you can set the power value in a slider.
 
@@ -61,5 +61,3 @@ Supported devices:
   * Unplug and replug the ANT+ stick
 * Stuck on "Starting ANT node"
   * Unplug and replug the ANT+ stick
-
-Original [README.md](https://github.com/dhague/vpower/blob/master/README.md)
