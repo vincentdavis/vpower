@@ -36,6 +36,9 @@ class LinearInterpolationPowerCalculator(AbstractPowerCalculator):
             for line in reader:
                 xp.append(int(line[0]))
                 yp.append(int(line[1]))
+    else:
+        xp.extend([5, 10, 15, 20, 25, 30, 35, 40, 45, 50, 55, 60])
+        yp.extend([30, 60, 90, 125, 160, 200, 230, 280, 325, 375, 430, 490])
 
     def power_from_speed(self, revs_per_sec):
         kms_per_rev = self.wheel_circumference / 1000.0
