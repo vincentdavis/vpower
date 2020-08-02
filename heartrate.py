@@ -23,11 +23,11 @@ antnode = None
 hr_monitor = None
 power_meter = None
 
-xp = [0]
-yp = [0]
 last = 0
 stopped = True
 
+xp = [0]
+yp = [0]
 zones_file = '%s/zones.csv' % SCRIPT_DIR
 if os.path.isfile(zones_file):
     with open(zones_file, 'r') as fd:
@@ -36,6 +36,9 @@ if os.path.isfile(zones_file):
         for line in reader:
             xp.append(int(line[0]))
             yp.append(int(line[1]))
+else:
+    xp.extend([80, 100, 120, 140, 160, 180])
+    yp.extend([0, 110, 140, 170, 200, 230])
 
 def on_exit(sig, func=None):
     if hr_monitor:
