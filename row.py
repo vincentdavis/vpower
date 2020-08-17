@@ -47,6 +47,11 @@ try:
     for dev in devs:
         if dev.idVendor == 0x0fcf and dev.idProduct in [0x1008, 0x1009]:
             break
+    else:
+        print("No ANT device found")
+        if getattr(sys, 'frozen', False):
+            input()
+        sys.exit()
 
     stick = driver.USB2Driver(log=LOG, debug=DEBUG, idProduct=dev.idProduct)
     antnode = node.Node(stick)
