@@ -74,10 +74,10 @@ def heart_rate_data(computed_heartrate, event_time_ms, rr_interval_ms):
     if t >= last + 1:
         power = int(interp(xp, yp, computed_heartrate))
         if power:
-            if power_meter: power_meter.update(power)
+            power_meter.update(power)
             stopped = False
         elif not stopped:
-            if power_meter: power_meter.update(power)
+            power_meter.update(power)
             stopped = True
         last = t
 
@@ -99,15 +99,6 @@ try:
     network = node.Network(NETKEY, 'N:ANT+')
     antnode.setNetworkKey(0, network)
 
-    print("Starting heart rate monitor")
-    try:
-        # Create the heart rate monitor object and open it
-        hr_monitor = HeartRate(antnode, network, {'onHeartRateData': heart_rate_data})
-        hr_monitor.open()
-    except Exception as e:
-        print("hr_monitor error: " + repr(e))
-        hr_monitor = None
-
     print("Starting power meter with ANT+ ID " + repr(POWER_SENSOR_ID))
     try:
         # Create the power meter object and open it
@@ -116,6 +107,15 @@ try:
     except Exception as e:
         print("power_meter error: " + repr(e))
         power_meter = None
+
+    print("Starting heart rate monitor")
+    try:
+        # Create the heart rate monitor object and open it
+        hr_monitor = HeartRate(antnode, network, {'onHeartRateData': heart_rate_data})
+        hr_monitor.open()
+    except Exception as e:
+        print("hr_monitor error: " + repr(e))
+        hr_monitor = None
 
     print("Main wait loop")
     while True:
