@@ -22,6 +22,7 @@ Even if the receiver app runs on the same computer, you will need two ANT+ stick
 Currently supported trainers:
 * [Bike Technologies Advanced Training System (BT-ATS)](http://www.biketechnologies.com/bt-advanced-training-system/)
 * [CycleOps Fluid2](https://www.cycleops.com/product/fluid2)
+* [Elite Novo Force 8](https://www.elite-it.com/en/products/home-trainers/classic-trainers/novo-force)
 * [Generic Fluid](http://www.powercurvesensor.com/cycling-trainer-power-curves/)
 * [Generic Magnetic (medium resistance)](http://www.powercurvesensor.com/cycling-trainer-power-curves/)
 * [Kurt Kinetic range of fluid trainers](https://kurtkinetic.com/products/trainers/)
