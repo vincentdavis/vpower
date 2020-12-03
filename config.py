@@ -9,6 +9,7 @@ from GenericMagneticPowerCalculator import GenericMagneticPowerCalculator
 from KurtKineticPowerCalculator import KurtKineticPowerCalculator
 from LinearInterpolationPowerCalculator import LinearInterpolationPowerCalculator
 from TacxBlueMotionPowerCalculator import TacxBlueMotionPowerCalculator
+from EliteNovoForceS3PowerCalculator import EliteNovoForceS3PowerCalculator
 from constants import *
 import hashlib
 
