@@ -85,11 +85,11 @@ try:
             # send a zero power message when speed sensor doesn't update for 3 seconds
             if not stopped:
                 t = int(time.time())
-                if t >= last_time + 3:
-                    if speed_sensor.revsPerSec == last_speed:
+                if t >= last_time + 5:
+                    if speed_sensor.currentData.speedEventTime == last_speed:
                         power_meter.update(0)
                         stopped = True
-                    last_speed = speed_sensor.revsPerSec
+                    last_speed = speed_sensor.currentData.speedEventTime
                     last_time = t
             elif power_meter.powerData.instantaneousPower > 0:
                 stopped = False

@@ -155,7 +155,7 @@ try:
         try:
             if not stopped:
                 t = int(time.time())
-                if t >= last_time + 3:
+                if t >= last_time + 5:
                     if cadence_listener.lastTime == last_event:
                         power_meter.update(0)
                         stopped = True
