@@ -141,15 +141,19 @@ try:
     print("Main wait loop")
     while True:
         try:
+            # Workaround for RGT Cycling and GTBikeV
             if not stopped:
                 t = int(time.time())
-                if t >= last_time + 5:
+                if t >= last_time + 3:
                     if cadence_listener.lastTime == last_event:
-                        power_meter.update(0)
+                        # Set power to zero if cadence sensor doesn't update for 3 seconds
+                        power_meter.powerData.instantaneousPower = 0
                         stopped = True
                     last_event = cadence_listener.lastTime
                     last_time = t
-            elif power_meter.powerData.instantaneousPower > 0:
+                # Force an update every second to avoid power drops
+                power_meter.update(power_meter.powerData.instantaneousPower)
+            elif power_meter.powerData.instantaneousPower:
                 stopped = False
             time.sleep(1)
         except (KeyboardInterrupt, SystemExit):

@@ -82,15 +82,17 @@ try:
     while True:
         try:
             # Workaround for RGT Cycling and GTBikeV
-            # send a zero power message when speed sensor doesn't update for 5 seconds
             if not stopped:
                 t = int(time.time())
-                if t >= last_time + 5:
+                if t >= last_time + 3:
                     if speed_sensor.currentData.speedEventTime == last_speed:
-                        power_meter.update(0)
+                        # Set power to zero if speed sensor doesn't update for 3 seconds
+                        power_meter.powerData.instantaneousPower = 0
                         stopped = True
                     last_speed = speed_sensor.currentData.speedEventTime
                     last_time = t
+                # Force an update every second to avoid power drops
+                power_meter.update(power_meter.powerData.instantaneousPower)
             elif power_meter.powerData.instantaneousPower:
                 stopped = False
             time.sleep(1)
