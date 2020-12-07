@@ -12,6 +12,7 @@ from usb.core import find
 
 from PowerMeterTx import PowerMeterTx
 from config import DEBUG, LOG, NETKEY, POWER_SENSOR_ID
+from functions import interp
 
 if getattr(sys, 'frozen', False):
     # If we're running as a pyinstaller bundle
@@ -53,19 +54,6 @@ def on_exit(sig, func=None):
         antnode.stop()
 
 win32api.SetConsoleCtrlHandler(on_exit, True)
-
-def interp(x_arr, y_arr, x):
-    for i, xi in enumerate(x_arr):
-        if xi >= x:
-            break
-    else:
-        return y_arr[-1]
-
-    x_min = x_arr[i - 1]
-    y_min = y_arr[i - 1]
-    y_max = y_arr[i]
-    factor = (x - x_min) / (xi - x_min)
-    return y_min + (y_max - y_min) * factor
 
 def heart_rate_data(computed_heartrate, event_time_ms, rr_interval_ms):
     global last

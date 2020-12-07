@@ -1,26 +1,9 @@
 from AbstractPowerCalculator import AbstractPowerCalculator
+from functions import interp
 
 
 '''
-Linear interpolation. Numpy could be used here,
-but the app should be kept thin
-'''
-def interp(x_arr, y_arr, x):
-    for i, xi in enumerate(x_arr):
-        if xi >= x:
-            break
-    else:
-        return 490
-
-    x_min = x_arr[i - 1]
-    y_min = y_arr[i - 1]
-    y_max = y_arr[i]
-    factor = (x - x_min) / (xi - x_min)
-    return y_min + (y_max - y_min) * factor
-
-
-'''
-Generic magnetic trainer power calculator.
+Elite Novo Force 3/8 power calculator.
 '''
 class EliteNovoForceS3PowerCalculator(AbstractPowerCalculator):
     def __init__(self):
@@ -44,5 +27,3 @@ class EliteNovoForceS3PowerCalculator(AbstractPowerCalculator):
 
     def set_wheel_circumference(self, circumference):
         self.wheel_circumference = circumference
-
-

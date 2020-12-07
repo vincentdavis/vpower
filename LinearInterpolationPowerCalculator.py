@@ -1,25 +1,13 @@
 import os, sys
 import csv
 from AbstractPowerCalculator import AbstractPowerCalculator
+from functions import interp
 
 if getattr(sys, 'frozen', False):
     # If we're running as a pyinstaller bundle
     SCRIPT_DIR = os.path.dirname(sys.executable)
 else:
     SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
-
-def interp(x_arr, y_arr, x):
-    for i, xi in enumerate(x_arr):
-        if xi >= x:
-            break
-    else:
-        return y_arr[-1]
-
-    x_min = x_arr[i - 1]
-    y_min = y_arr[i - 1]
-    y_max = y_arr[i]
-    factor = (x - x_min) / (xi - x_min)
-    return y_min + (y_max - y_min) * factor
 
 class LinearInterpolationPowerCalculator(AbstractPowerCalculator):
     def __init__(self):
