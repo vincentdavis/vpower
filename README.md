@@ -35,6 +35,8 @@ Supported devices:
 * [ANTUSB2 Stick](http://www.thisisant.com/developer/components/antusb2/) (0fcf:1008: Dynastream Innovations, Inc.)
 * [ANTUSB-m Stick](http://www.thisisant.com/developer/components/antusb-m/) (0fcf:1009: Dynastream Innovations, Inc.)
 
+Warning: the [Cycplus ANT Stick](https://www.cycplus.com/products/ant-usb-stick-u1) is not compatible, even though it uses the same VID/PID as the ANTUSB2 Stick.
+
 ## Running on Windows
 
 * Download the [standalone executable](https://github.com/oldnapalm/vpower/releases/latest)
@@ -55,12 +57,4 @@ Supported devices:
 * Open Command Prompt, CD to the python-ant repo directory and run ``python setup.py install``
 * Run ``pip install configparser pywin32``
 * Clone or download this repo
-* CD to the repo directory and run ``python vpower.py``
-
-## Troubleshooting
-
-* USBError: could not claim interface
-  * Make sure the device is not in use by other app
-  * Unplug and replug the ANT+ stick
-* Stuck on "Starting ANT node"
-  * Unplug and replug the ANT+ stick
+* CD to the repo directory and run ``python vpower.py`` (or double click `vpower.py` if you installed the Python Launcher)

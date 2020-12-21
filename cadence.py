@@ -97,17 +97,23 @@ def on_exit(sig, func=None):
 win32api.SetConsoleCtrlHandler(on_exit, True)
 
 try:
-    devs = find(find_all=True)
+    devs = find(find_all=True, idVendor=0x0fcf)
     for dev in devs:
-        if dev.idVendor == 0x0fcf and dev.idProduct in [0x1008, 0x1009]:
+        if dev.idProduct in [0x1008, 0x1009]:
+            stick = driver.USB2Driver(log=LOG, debug=DEBUG, idProduct=dev.idProduct, address=dev.address)
+            try:
+                stick.open()
+            except:
+                print("ANT device %s not available" % dev.address)
+                continue
+            stick.close()
             break
     else:
-        print("No ANT device found")
+        print("No ANT devices available")
         if getattr(sys, 'frozen', False):
             input()
         sys.exit()
 
-    stick = driver.USB2Driver(log=LOG, debug=DEBUG, idProduct=dev.idProduct)
     antnode = node.Node(stick)
     print("Starting ANT node")
     antnode.start()
