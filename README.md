@@ -35,7 +35,7 @@ Supported devices:
 * [ANTUSB2 Stick](http://www.thisisant.com/developer/components/antusb2/) (0fcf:1008: Dynastream Innovations, Inc.)
 * [ANTUSB-m Stick](http://www.thisisant.com/developer/components/antusb-m/) (0fcf:1009: Dynastream Innovations, Inc.)
 
-Warning: the [Cycplus ANT Stick](https://www.cycplus.com/products/ant-usb-stick-u1) is not compatible, even though it uses the same VID/PID as the ANTUSB2 Stick.
+Warning: the [Cycplus ANT Stick](https://www.cycplus.com/products/ant-usb-stick-u1) is not compatible, even though it uses the same Vendor ID and Product ID (0fcf:1008) as the ANTUSB2 Stick.
 
 ## Running on Windows
 
@@ -43,7 +43,7 @@ Warning: the [Cycplus ANT Stick](https://www.cycplus.com/products/ant-usb-stick-
 * Configure speed sensor, power calculator and wheel circumference in **vpower.cfg**
   * You can leave `speed_sensor_id` as zero if there's only one sensor around
   * If using `LinearInterpolationPowerCalculator` set speed and power values in the file [curve.csv](https://github.com/oldnapalm/vpower/blob/master/curve.csv)
-* Install the libusb-win32 driver for the ANT+ device, it can be easily done using [Zadig](https://zadig.akeo.ie/)
+* Install the libusb-win32 driver for the ANT+ device (if not already installed), it can be easily done using [Zadig](https://zadig.akeo.ie/)
   * Options - List All Devices
   * Select ANT+ stick
   * Select libusb-win32 driver and click Replace Driver
@@ -57,4 +57,4 @@ Warning: the [Cycplus ANT Stick](https://www.cycplus.com/products/ant-usb-stick-
 * Open Command Prompt, CD to the python-ant repo directory and run ``python setup.py install``
 * Run ``pip install configparser pywin32``
 * Clone or download this repo
-* CD to the repo directory and run ``python vpower.py`` (or double click `vpower.py` if you installed the Python Launcher)
+* CD to the repo directory and run ``python vpower.py`` (or double click **vpower.py** if you installed the Python Launcher)
