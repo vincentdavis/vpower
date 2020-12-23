@@ -46,11 +46,10 @@ try:
     devs = find(find_all=True, idVendor=0x0fcf)
     for dev in devs:
         if dev.idProduct in [0x1008, 0x1009]:
-            stick = driver.USB2Driver(log=LOG, debug=DEBUG, idProduct=dev.idProduct, address=dev.address)
+            stick = driver.USB2Driver(log=LOG, debug=DEBUG, idProduct=dev.idProduct, bus=dev.bus, address=dev.address)
             try:
                 stick.open()
             except:
-                print("ANT device %s not available" % dev.address)
                 continue
             stick.close()
             break
