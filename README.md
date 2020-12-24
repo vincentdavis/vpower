@@ -35,7 +35,7 @@ Supported devices:
 * [ANTUSB2 Stick](http://www.thisisant.com/developer/components/antusb2/) (0fcf:1008: Dynastream Innovations, Inc.)
 * [ANTUSB-m Stick](http://www.thisisant.com/developer/components/antusb-m/) (0fcf:1009: Dynastream Innovations, Inc.)
 
-Warning: the [Cycplus ANT Stick](https://www.cycplus.com/products/ant-usb-stick-u1) is not compatible, even though it uses the same Vendor ID and Product ID (0fcf:1008) as the ANTUSB2 Stick.
+Warning: the [Cycplus ANT Stick](https://tacxfaqx.com/knowledge-base/cycplus-ant-stick/) is not compatible, even though it uses the same Vendor ID and Product ID (0fcf:1008) as the ANTUSB2 Stick.
 
 ## Running on Windows
 
