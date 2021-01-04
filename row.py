@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 import sys
 import time
-import win32api
+import platform
 
 from ant.core import driver
 from ant.core import node
@@ -19,7 +19,7 @@ power_meter = None
 last = 0
 stopped = True
 
-def on_exit(sig, func=None):
+def stop_ant():
     if power_meter:
         print("Closing power meter")
         power_meter.close()
@@ -28,7 +28,16 @@ def on_exit(sig, func=None):
         print("Stopping ANT node")
         antnode.stop()
 
-win32api.SetConsoleCtrlHandler(on_exit, True)
+pywin32 = False
+if platform.system() == 'Windows':
+    def on_exit(sig, func=None):
+        stop_ant()
+    try:
+        import win32api
+        win32api.SetConsoleCtrlHandler(on_exit, True)
+        pywin32 = True
+    except ImportError:
+        print("Warning: pywin32 is not installed, use Ctrl+C to stop")
 
 try:
     # Connecting to erg
@@ -132,3 +141,6 @@ except Exception as e:
     print("Exception: " + repr(e))
     if getattr(sys, 'frozen', False):
         input()
+finally:
+    if not pywin32:
+        stop_ant()

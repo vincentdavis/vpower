@@ -2,7 +2,7 @@
 import os, sys
 import time
 import csv
-import win32api
+import platform
 
 from ant.core import driver, node, event, message
 from ant.core.constants import *
@@ -81,7 +81,7 @@ else:
     xp.extend([20, 40, 60, 80, 100, 120, 140])
     yp.extend([40, 80, 100, 200, 400, 600, 800])
 
-def on_exit(sig, func=None):
+def stop_ant():
     if cadence_sensor:
         print("Closing cadence sensor")
         cadence_sensor.close()
@@ -94,7 +94,16 @@ def on_exit(sig, func=None):
         print("Stopping ANT node")
         antnode.stop()
 
-win32api.SetConsoleCtrlHandler(on_exit, True)
+pywin32 = False
+if platform.system() == 'Windows':
+    def on_exit(sig, func=None):
+        stop_ant()
+    try:
+        import win32api
+        win32api.SetConsoleCtrlHandler(on_exit, True)
+        pywin32 = True
+    except ImportError:
+        print("Warning: pywin32 is not installed, use Ctrl+C to stop")
 
 try:
     devs = find(find_all=True, idVendor=0x0fcf)
@@ -168,3 +177,6 @@ except Exception as e:
     print("Exception: " + repr(e))
     if getattr(sys, 'frozen', False):
         input()
+finally:
+    if not pywin32:
+        stop_ant()

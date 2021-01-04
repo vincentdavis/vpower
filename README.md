@@ -50,11 +50,13 @@ Warning: the [Cycplus ANT Stick](https://tacxfaqx.com/knowledge-base/cycplus-ant
 * If using the row version, install the libusb-win32 driver for the rower too
 * Run the downloaded executable
 
-### Running from source code
+## Running from source code (Windows, Linux, macOS)
 
 * Install [Python 3](https://www.python.org/downloads/) if not already installed
-* Clone or download [python-ant](https://github.com/oldnapalm/python-ant) repo
-* Open Command Prompt, CD to the python-ant repo directory and run ``python setup.py install``
-* Run ``pip install configparser pywin32``
+  * Check "Add Python to PATH" or use the full path in the commands below
 * Clone or download this repo
-* CD to the repo directory and run ``python vpower.py`` (or double click **vpower.py** if you installed the Python Launcher)
+* CD to the repo directory and run `pip install -r requirements.txt`
+  * On Linux and macOS use `pip3` instead of `pip`
+* [Optional] Run `pip install pywin32` (Windows only, to stop the ANT node on terminal window close)
+* Run `python vpower.py` (or double click **vpower.py** if you installed the Python Launcher)
+  * On Linux and macOS use `python3` instead of `python`
