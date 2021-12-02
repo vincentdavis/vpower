@@ -2,6 +2,7 @@
 import sys
 import time
 import platform
+import random
 import tkinter as tk
 
 from ant.core import driver
@@ -77,17 +78,26 @@ try:
     master.call('wm', 'attributes', '.', '-topmost', '1')
     master.protocol("WM_DELETE_WINDOW", disable_event)
     w = tk.Scale(master, from_=0, to=1000, length=200, orient=tk.HORIZONTAL)
+    r = tk.Scale(master, from_=.0001, to=1, length=200, orient=tk.HORIZONTAL)
     w.pack()
 
     last = 0
     stopped = True
 
     print("Main wait loop")
+    power = None
     while True:
         try:
             t = int(time.time())
             if t >= last + 1:
-                power = w.get()
+                adj = random.randint(a=-5, b=5)
+                if not power:
+                    power = w.get()
+                wg = w.get()
+                if (wg - wg * r) <= (power + adj) <= (wg + wg * r):
+                    power = power + adj
+                else:
+                    power = w.get()
                 if power:
                     power_meter.update(power)
                     stopped = False
