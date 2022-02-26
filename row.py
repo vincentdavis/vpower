@@ -96,10 +96,11 @@ try:
             while workout['state'] == 1:
 
                 forceplot = erg.get_force_plot()
+                monitor = erg.get_monitor()
 
                 # Loop while waiting for drive
                 while forceplot['strokestate'] != 2 and workout['state'] == 1:
-                    time.sleep(.5)
+                    time.sleep(.25)
                     forceplot = erg.get_force_plot()
                     workout = erg.get_workout()
                     if not stopped:
@@ -109,7 +110,6 @@ try:
                             power_meter.update(0, 0)
                             stopped = True
                         else:
-                            monitor = erg.get_monitor()
                             power_meter.update(monitor['power'], monitor['spm'])
 
                 # Loop during drive
