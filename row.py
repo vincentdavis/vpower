@@ -92,15 +92,15 @@ try:
                 workout = erg.get_workout()
             print("Workout has begun")
 
-            monitor = erg.get_monitor()
-            forceplot = erg.get_force_plot()
-
             # Loop until workout ends
             while workout['state'] == 1:
 
+                forceplot = erg.get_force_plot()
+                monitor = erg.get_monitor()
+
                 # Loop while waiting for drive
                 while forceplot['strokestate'] != 2 and workout['state'] == 1:
-                    time.sleep(.5)
+                    time.sleep(.25)
                     forceplot = erg.get_force_plot()
                     workout = erg.get_workout()
                     if not stopped:
@@ -109,22 +109,13 @@ try:
                             # Send zero power message on 4 seconds timeout
                             power_meter.update(0, 0)
                             stopped = True
-                        # Workaround for RGT dropping cadence to zero
                         else:
                             power_meter.update(monitor['power'], monitor['spm'])
-
-                # Get monitor data for start of stroke and update power meter
-                monitor = erg.get_monitor()
-                power_meter.update(monitor['power'], monitor['spm'])
 
                 # Loop during drive
                 while forceplot['strokestate'] == 2:
                     time.sleep(.1)
                     forceplot = erg.get_force_plot()
-
-                # Get monitor data for end of stroke and update power meter
-                monitor = erg.get_monitor()
-                power_meter.update(monitor['power'], monitor['spm'])
 
                 last = int(time.time())
                 stopped = False
