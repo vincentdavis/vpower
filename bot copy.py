@@ -2,6 +2,8 @@
 import sys
 import time
 import platform
+import random
+import tkinter as tk
 
 from ant.core import driver
 from ant.core import node
@@ -9,23 +11,12 @@ from ant.core import node
 from usb.core import find
 
 from PowerMeterTx import PowerMeterTx
-from SpeedCadenceSensorRx import SpeedCadenceSensorRx
-from config import DEBUG, LOG, NETKEY, POWER_CALCULATOR, POWER_SENSOR_ID, SENSOR_TYPE, SPEED_SENSOR_ID
-
+from config import DEBUG, LOG, NETKEY, POWER_SENSOR_ID
 
 antnode = None
-speed_sensor = None
 power_meter = None
 
-last_speed = 0
-last_time = 0
-stopped = True
-
 def stop_ant():
-    if speed_sensor:
-        print("Closing speed sensor")
-        speed_sensor.close()
-        speed_sensor.unassign()
     if power_meter:
         print("Closing power meter")
         power_meter.close()
@@ -45,9 +36,10 @@ if platform.system() == 'Windows':
     except ImportError:
         print("Warning: pywin32 is not installed, use Ctrl+C to stop")
 
-try:
-    print("Using " + POWER_CALCULATOR.__class__.__name__)
+def disable_event():
+    pass
 
+try:
     devs = find(find_all=True, idVendor=0x0fcf)
     for dev in devs:
         if dev.idProduct in [0x1008, 0x1009]:
@@ -70,17 +62,6 @@ try:
     key = node.Network(NETKEY, 'N:ANT+')
     antnode.setNetworkKey(0, key)
 
-    print("Starting speed sensor")
-    try:
-        # Create the speed sensor object and open it
-        speed_sensor = SpeedCadenceSensorRx(antnode, SENSOR_TYPE, SPEED_SENSOR_ID & 0xffff)
-        speed_sensor.open()
-        # Notify the power calculator every time we get a speed event
-        speed_sensor.notify_change(POWER_CALCULATOR)
-    except Exception as e:
-        print("speed_sensor error: " + repr(e))
-        speed_sensor = None
-
     print("Starting power meter with ANT+ ID " + repr(POWER_SENSOR_ID))
     try:
         # Create the power meter object and open it
@@ -90,29 +71,44 @@ try:
         print("power_meter error: " + repr(e))
         power_meter = None
 
-    # Notify the power meter every time we get a calculated power value
-    POWER_CALCULATOR.notify_change(power_meter)
+
+# Py Simple Gui
+    layout = [
+        [sg.Text("Cordyceps: a Zombie Fungus Takes Over Ants Bodies to Controls Zwift")],
+        [sg.Slider(range=(5, 1000), orientation='h', size=(10, 20), change_submits=True, key='-SLIDER1-', font=('Helvetica 20'))],
+            ]
+    # Create the window
+    window = sg.Window("Cordyceps", layout)
+
+    last = 0
+    stopped = True
 
     print("Main wait loop")
+    power = None
+    # Create an event loop
     while True:
+        event, values = window.read()
         try:
-            # Workaround for RGT Cycling and GTBikeV
-            if not stopped:
-                t = int(time.time())
-                if t >= last_time + 3:
-                    if speed_sensor.currentData.speedEventTime == last_speed:
-                        # Set power to zero if speed sensor doesn't update for 3 seconds
-                        power_meter.powerData.instantaneousPower = 0
-                        stopped = True
-                    last_speed = speed_sensor.currentData.speedEventTime
-                    last_time = t
-                # Force an update every second to avoid power drops
-                power_meter.update(power_meter.powerData.instantaneousPower)
-            elif power_meter.powerData.instantaneousPower:
-                stopped = False
-            time.sleep(1)
+            t = int(time.time())
+            if t >= last + 1:
+                adj = random.randint(a=-5, b=5)
+                if not power:
+                    power = 5
+                if event == '-SLIDER1-':
+                    power = int(values['-SLIDER1-'])
+                if power:
+                    power_meter.update(power)
+                    stopped = False
+                elif not stopped:
+                    power_meter.update(power)
+                    stopped = True
+                last = t
         except (KeyboardInterrupt, SystemExit):
             break
+        if event == sg.WIN_CLOSED:
+            break
+
+    window.close()
 
 except Exception as e:
     print("Exception: " + repr(e))

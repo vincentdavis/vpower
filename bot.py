@@ -78,8 +78,9 @@ try:
     master.call('wm', 'attributes', '.', '-topmost', '1')
     master.protocol("WM_DELETE_WINDOW", disable_event)
     w = tk.Scale(master, from_=0, to=1000, length=200, orient=tk.HORIZONTAL)
-    r = tk.Scale(master, from_=.0001, to=1, length=200, orient=tk.HORIZONTAL)
+    # r = tk.Scale(master, from_=.0001, to=1, length=200, orient=tk.HORIZONTAL)
     w.pack()
+    r.pack()
 
     last = 0
     stopped = True
