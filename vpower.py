@@ -1,11 +1,10 @@
 #!/usr/bin/env python
+import platform
 import sys
 import time
-import platform
 
 from ant.core import driver
 from ant.core import node
-
 from usb.core import find
 
 from PowerMeterTx import PowerMeterTx
@@ -20,6 +19,7 @@ last_speed = 0
 last_time = 0
 stopped = True
 
+
 def stop_ant():
     if speed_sensor:
         print("Closing speed sensor")
@@ -33,12 +33,16 @@ def stop_ant():
         print("Stopping ANT node")
         antnode.stop()
 
+
 pywin32 = False
 if platform.system() == 'Windows':
     def on_exit(sig, func=None):
         stop_ant()
+
+
     try:
         import win32api
+
         win32api.SetConsoleCtrlHandler(on_exit, True)
         pywin32 = True
     except ImportError:

@@ -1,10 +1,11 @@
 from AbstractPowerCalculator import AbstractPowerCalculator
 from functions import interp
 
-
 '''
 Tacx Blue Motion power calculator. Uses fixed lever position 4.
 '''
+
+
 class TacxBlueMotionPowerCalculator(AbstractPowerCalculator):
     def __init__(self):
         super(TacxBlueMotionPowerCalculator, self).__init__()

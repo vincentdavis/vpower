@@ -3,6 +3,8 @@ from AbstractPowerCalculator import AbstractPowerCalculator
 '''
 Elite Qubo Fluid power calculator.
 '''
+
+
 class EliteQuboFluidPowerCalculator(AbstractPowerCalculator):
     def __init__(self):
         super(EliteQuboFluidPowerCalculator, self).__init__()
@@ -14,7 +16,7 @@ class EliteQuboFluidPowerCalculator(AbstractPowerCalculator):
     def power_from_speed(self, revs_per_sec):
         kms_per_rev = self.wheel_circumference / 1000.0
         speed = revs_per_sec * 3600 * kms_per_rev
-        power = int(4.31746 * speed -2.59259e-002 * speed ** 2 +  9.41799e-003 * speed ** 3)
+        power = int(4.31746 * speed - 2.59259e-002 * speed ** 2 + 9.41799e-003 * speed ** 3)
         return power
 
     def set_wheel_circumference(self, circumference):

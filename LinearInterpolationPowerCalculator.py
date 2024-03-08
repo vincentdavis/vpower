@@ -1,5 +1,7 @@
-import os, sys
 import csv
+import os
+import sys
+
 from AbstractPowerCalculator import AbstractPowerCalculator
 from functions import interp
 
@@ -8,6 +10,7 @@ if getattr(sys, 'frozen', False):
     SCRIPT_DIR = os.path.dirname(sys.executable)
 else:
     SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
+
 
 class LinearInterpolationPowerCalculator(AbstractPowerCalculator):
     def __init__(self):

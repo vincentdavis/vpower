@@ -1,12 +1,12 @@
 #!/usr/bin/env python
-import os, sys
-import time
 import csv
+import os
 import platform
+import sys
+import time
 
 from ant.core import driver, node, event, message
 from ant.core.constants import *
-
 from usb.core import find
 
 from PowerMeterTx import PowerMeterTx
@@ -19,10 +19,12 @@ if getattr(sys, 'frozen', False):
 else:
     SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
+
 def convertSB(raw):
     value = int(raw[1]) << 8
     value += int(raw[0])
     return value
+
 
 class CadenceListener(event.EventCallback):
     lastTime = None
@@ -59,6 +61,7 @@ class CadenceListener(event.EventCallback):
             self.lastTime = eventTime
             self.lastRevolutions = revolutions
 
+
 antnode = None
 cadence_sensor = None
 power_meter = None
@@ -81,6 +84,7 @@ else:
     xp.extend([20, 40, 60, 80, 100, 120, 140])
     yp.extend([40, 80, 100, 200, 400, 600, 800])
 
+
 def stop_ant():
     if cadence_sensor:
         print("Closing cadence sensor")
@@ -94,12 +98,16 @@ def stop_ant():
         print("Stopping ANT node")
         antnode.stop()
 
+
 pywin32 = False
 if platform.system() == 'Windows':
     def on_exit(sig, func=None):
         stop_ant()
+
+
     try:
         import win32api
+
         win32api.SetConsoleCtrlHandler(on_exit, True)
         pywin32 = True
     except ImportError:

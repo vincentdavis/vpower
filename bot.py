@@ -1,12 +1,11 @@
 #!/usr/bin/env python
+import platform
 import sys
 import time
-import platform
 import tkinter as tk
 
 from ant.core import driver
 from ant.core import node
-
 from usb.core import find
 
 from PowerMeterTx import PowerMeterTx
@@ -14,6 +13,7 @@ from config import DEBUG, LOG, NETKEY, POWER_SENSOR_ID
 
 antnode = None
 power_meter = None
+
 
 def stop_ant():
     if power_meter:
@@ -24,19 +24,25 @@ def stop_ant():
         print("Stopping ANT node")
         antnode.stop()
 
+
 pywin32 = False
 if platform.system() == 'Windows':
     def on_exit(sig, func=None):
         stop_ant()
+
+
     try:
         import win32api
+
         win32api.SetConsoleCtrlHandler(on_exit, True)
         pywin32 = True
     except ImportError:
         print("Warning: pywin32 is not installed, use Ctrl+C to stop")
 
+
 def disable_event():
     pass
+
 
 try:
     devs = find(find_all=True, idVendor=0x0fcf)

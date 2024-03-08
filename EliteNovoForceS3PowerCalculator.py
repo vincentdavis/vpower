@@ -1,10 +1,11 @@
 from AbstractPowerCalculator import AbstractPowerCalculator
 from functions import interp
 
-
 '''
 Elite Novo Force 3/8 power calculator.
 '''
+
+
 class EliteNovoForceS3PowerCalculator(AbstractPowerCalculator):
     def __init__(self):
         super(EliteNovoForceS3PowerCalculator, self).__init__()

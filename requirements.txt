@@ -1,1 +1,6 @@
+# dev requirements
+ruff==0.3.1
+ruff-lsp==0.0.53
+pur==7.3.1
+# Production requirements
 git+https://github.com/mch/python-ant.git

@@ -1,8 +1,8 @@
 from ant.core import event, message, node
 from ant.core.constants import *
 
-from constants import *
 from config import NETKEY, VPOWER_DEBUG
+from constants import *
 
 
 # Receiver for Speed and/or Cadence ANT+ sensor

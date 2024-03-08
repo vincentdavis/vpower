@@ -1,10 +1,11 @@
 from AbstractPowerCalculator import AbstractPowerCalculator
 from functions import interp
 
-
 '''
 Generic magnetic trainer power calculator.
 '''
+
+
 class GenericMagneticPowerCalculator(AbstractPowerCalculator):
     def __init__(self):
         super(GenericMagneticPowerCalculator, self).__init__()

@@ -1,10 +1,11 @@
 from AbstractPowerCalculator import AbstractPowerCalculator
 from functions import interp
 
-
 '''
 CycleOps Fluid2 power calculator.
 '''
+
+
 class CycleOpsFluid2PowerCalculator(AbstractPowerCalculator):
     def __init__(self):
         super(CycleOpsFluid2PowerCalculator, self).__init__()

@@ -1,10 +1,9 @@
-import sys
 from ant.core import message, node
 from ant.core.constants import *
 from ant.core.exceptions import ChannelError
 
-from constants import *
 from config import NETKEY, VPOWER_DEBUG
+from constants import *
 
 CHANNEL_PERIOD = 8182
 

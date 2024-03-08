@@ -1,13 +1,13 @@
 #!/usr/bin/env python
-import os, sys
-import time
 import csv
+import os
 import platform
+import sys
+import time
 
 from ant.core import driver
 from ant.core import node
 from ant.plus.heartrate import *
-
 from usb.core import find
 
 from PowerMeterTx import PowerMeterTx
@@ -41,6 +41,7 @@ else:
     xp.extend([80, 100, 120, 140, 160, 180])
     yp.extend([0, 110, 140, 170, 200, 230])
 
+
 def stop_ant():
     if hr_monitor:
         print("Closing heart rate monitor")
@@ -53,16 +54,21 @@ def stop_ant():
         print("Stopping ANT node")
         antnode.stop()
 
+
 pywin32 = False
 if platform.system() == 'Windows':
     def on_exit(sig, func=None):
         stop_ant()
+
+
     try:
         import win32api
+
         win32api.SetConsoleCtrlHandler(on_exit, True)
         pywin32 = True
     except ImportError:
         print("Warning: pywin32 is not installed, use Ctrl+C to stop")
+
 
 def heart_rate_data(computed_heartrate, event_time_ms, rr_interval_ms):
     global last
@@ -77,6 +83,7 @@ def heart_rate_data(computed_heartrate, event_time_ms, rr_interval_ms):
             power_meter.update(power)
             stopped = True
         last = t
+
 
 try:
     devs = find(find_all=True, idVendor=0x0fcf)

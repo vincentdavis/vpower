@@ -1,14 +1,17 @@
+import datetime
+import sys
+import time
+
 import usb.core
 import usb.util
 from usb import USBError
+
 from . import csafe_cmd
-import datetime
-import time
-import sys
 
 C2_VENDOR_ID = 0x17a4
-MIN_FRAME_GAP = .050 #in seconds
+MIN_FRAME_GAP = .050  # in seconds
 INTERFACE = 0
+
 
 def find():
     ergs = usb.core.find(find_all=True, idVendor=C2_VENDOR_ID)
@@ -26,7 +29,7 @@ class pyrow(object):
 
         if sys.platform != 'win32':
             try:
-                #Check to see if driver is attached to kernel (linux)
+                # Check to see if driver is attached to kernel (linux)
                 if erg.is_kernel_driver_active(INTERFACE):
                     erg.detach_kernel_driver(INTERFACE)
                 else:
@@ -34,13 +37,13 @@ class pyrow(object):
             except:
                 print("EXCEPTION")
 
-        #Claim interface (Needs Testing To See If Necessary)
+        # Claim interface (Needs Testing To See If Necessary)
         usb.util.claim_interface(erg, INTERFACE)
 
-        #Linux throws error, reason unknown
+        # Linux throws error, reason unknown
         try:
-            erg.set_configuration() #required to configure USB connection
-            #Ubuntu Linux returns 'usb.core.USBError: Resource busy' but rest of code still works
+            erg.set_configuration()  # required to configure USB connection
+            # Ubuntu Linux returns 'usb.core.USBError: Resource busy' but rest of code still works
         except Exception as e:
             if not isinstance(e, USBError):
                 raise e
@@ -61,7 +64,7 @@ class pyrow(object):
 
         if type(value) is not int:
             raise TypeError(label)
-        if  not minimum <= value <= maximum:
+        if not minimum <= value <= maximum:
             raise ValueError(label + " outside of range")
         return True
 
@@ -80,26 +83,26 @@ class pyrow(object):
 
         monitor = {}
         monitor['time'] = (results['CSAFE_PM_GET_WORKTIME'][0] + \
-            results['CSAFE_PM_GET_WORKTIME'][1])/100.
+                           results['CSAFE_PM_GET_WORKTIME'][1]) / 100.
 
         monitor['distance'] = (results['CSAFE_PM_GET_WORKDISTANCE'][0] + \
-            results['CSAFE_PM_GET_WORKDISTANCE'][1])/10.
+                               results['CSAFE_PM_GET_WORKDISTANCE'][1]) / 10.
 
         monitor['spm'] = results['CSAFE_GETCADENCE_CMD'][0]
-        #Rowing machine always returns power as Watts
+        # Rowing machine always returns power as Watts
         monitor['power'] = results['CSAFE_GETPOWER_CMD'][0]
         if monitor['power']:
-            monitor['pace'] = ((2.8 / results['CSAFE_GETPOWER_CMD'][0]) ** (1./3)) * 500
-            monitor['calhr'] = results['CSAFE_GETPOWER_CMD'][0]  * (4.0 * 0.8604) + 300.
+            monitor['pace'] = ((2.8 / results['CSAFE_GETPOWER_CMD'][0]) ** (1. / 3)) * 500
+            monitor['calhr'] = results['CSAFE_GETPOWER_CMD'][0] * (4.0 * 0.8604) + 300.
         else:
             monitor['pace'], monitor['calhr'] = 0, 0
         monitor['calories'] = results['CSAFE_GETCALORIES_CMD'][0]
         monitor['heartrate'] = results['CSAFE_GETHRCUR_CMD'][0]
 
         if forceplot:
-            #get amount of returned data in bytes
+            # get amount of returned data in bytes
             datapoints = results['CSAFE_PM_GET_FORCEPLOTDATA'][0] // 2
-            monitor['forceplot'] = results['CSAFE_PM_GET_FORCEPLOTDATA'][1:(datapoints+1)]
+            monitor['forceplot'] = results['CSAFE_PM_GET_FORCEPLOTDATA'][1:(datapoints + 1)]
             monitor['strokestate'] = results['CSAFE_PM_GET_STROKESTATE'][0]
 
         monitor['status'] = results['CSAFE_GETSTATUS_CMD'][0] & 0xF
@@ -116,13 +119,12 @@ class pyrow(object):
 
         forceplot = {}
         datapoints = results['CSAFE_PM_GET_FORCEPLOTDATA'][0] // 2
-        forceplot['forceplot'] = results['CSAFE_PM_GET_FORCEPLOTDATA'][1:(datapoints+1)]
+        forceplot['forceplot'] = results['CSAFE_PM_GET_FORCEPLOTDATA'][1:(datapoints + 1)]
         forceplot['strokestate'] = results['CSAFE_PM_GET_STROKESTATE'][0]
 
         forceplot['status'] = results['CSAFE_GETSTATUS_CMD'][0] & 0xF
 
         return forceplot
-
 
     def get_workout(self):
         """
@@ -153,15 +155,15 @@ class pyrow(object):
         results = self.send(command)
 
         ergdata = {}
-        #Get data from csafe get version command
+        # Get data from csafe get version command
         ergdata['mfgid'] = results['CSAFE_GETVERSION_CMD'][0]
         ergdata['cid'] = results['CSAFE_GETVERSION_CMD'][1]
         ergdata['model'] = results['CSAFE_GETVERSION_CMD'][2]
         ergdata['hwversion'] = results['CSAFE_GETVERSION_CMD'][3]
         ergdata['swversion'] = results['CSAFE_GETVERSION_CMD'][4]
-        #Get data from csafe get serial command
+        # Get data from csafe get serial command
         ergdata['serial'] = results['CSAFE_GETSERIAL_CMD'][0]
-        #Get data from csafe get capabilities command
+        # Get data from csafe get capabilities command
         ergdata['maxrx'] = results['CSAFE_GETCAPS_CMD'][0]
         ergdata['maxtx'] = results['CSAFE_GETCAPS_CMD'][1]
         ergdata['mininterframe'] = results['CSAFE_GETCAPS_CMD'][2]
@@ -183,16 +185,15 @@ class pyrow(object):
 
         return status
 
-
     def set_clock(self):
         """
         Sets the erg clock to the computers current time and date
         """
 
-        now = datetime.datetime.now() #Get current date and time
+        now = datetime.datetime.now()  # Get current date and time
 
         command = ['CSAFE_SETTIME_CMD', now.hour, now.minute, now.second]
-        command.extend(['CSAFE_SETDATE_CMD', (now.year-1900), now.month, now.day])
+        command.extend(['CSAFE_SETDATE_CMD', (now.year - 1900), now.month, now.day])
 
         self.send(command)
 
@@ -206,22 +207,22 @@ class pyrow(object):
         self.send(['CSAFE_RESET_CMD'])
         command = []
 
-        #Set Workout Goal
+        # Set Workout Goal
         if program != None:
             self.__checkvalue(program, "Program", 0, 15)
         elif workout_time != None:
             if len(workout_time) == 1:
-                #if only seconds in workout_time then pad minutes
+                # if only seconds in workout_time then pad minutes
                 workout_time.insert(0, 0)
             if len(workout_time) == 2:
-                #if no hours in workout_time then pad hours
-                workout_time.insert(0, 0) #if no hours in workout_time then pad hours
+                # if no hours in workout_time then pad hours
+                workout_time.insert(0, 0)  # if no hours in workout_time then pad hours
             self.__checkvalue(workout_time[0], "Time Hours", 0, 9)
             self.__checkvalue(workout_time[1], "Time Minutes", 0, 59)
             self.__checkvalue(workout_time[2], "Time Seconds", 0, 59)
 
             if workout_time[0] == 0 and workout_time[1] == 0 and workout_time[2] < 20:
-                #checks if workout is < 20 seconds
+                # checks if workout is < 20 seconds
                 raise ValueError("Workout too short")
 
             command.extend(['CSAFE_SETTWORK_CMD', workout_time[0],
@@ -229,33 +230,32 @@ class pyrow(object):
 
         elif distance != None:
             self.__checkvalue(distance, "Distance", 100, 50000)
-            command.extend(['CSAFE_SETHORIZONTAL_CMD', distance, 36]) #36 = meters
+            command.extend(['CSAFE_SETHORIZONTAL_CMD', distance, 36])  # 36 = meters
 
-        #Set Split
+        # Set Split
         if split != None:
             if workout_time != None and program == None:
-                split = int(split*100)
-                #total workout workout_time (1 sec)
-                time_raw = workout_time[0]*3600+workout_time[1]*60+workout_time[2]
-                #split workout_time that will occur 30 workout_times (.01 sec)
-                minsplit = int(time_raw/30*100+0.5)
-                self.__checkvalue(split, "Split Time", max(2000, minsplit), time_raw*100)
+                split = int(split * 100)
+                # total workout workout_time (1 sec)
+                time_raw = workout_time[0] * 3600 + workout_time[1] * 60 + workout_time[2]
+                # split workout_time that will occur 30 workout_times (.01 sec)
+                minsplit = int(time_raw / 30 * 100 + 0.5)
+                self.__checkvalue(split, "Split Time", max(2000, minsplit), time_raw * 100)
                 command.extend(['CSAFE_PM_SET_SPLITDURATION', 0, split])
             elif distance != None and program == None:
-                minsplit = int(distance/30+0.5) #split distance that will occur 30 workout_times (m)
+                minsplit = int(distance / 30 + 0.5)  # split distance that will occur 30 workout_times (m)
                 self.__checkvalue(split, "Split distance", max(100, minsplit), distance)
                 command.extend(['CSAFE_PM_SET_SPLITDURATION', 128, split])
             else:
                 raise ValueError("Cannot set split for current goal")
 
-
-        #Set Pace
+        # Set Pace
         if pace != None:
             powerpace = int(round(2.8 / ((pace / 500.) ** 3)))
         elif calpace != None:
-            powerpace = int(round((calpace - 300.)/(4.0 * 0.8604)))
+            powerpace = int(round((calpace - 300.) / (4.0 * 0.8604)))
         if powerpace != None:
-            command.extend(['CSAFE_SETPOWER_CMD', powerpace, 88]) #88 = watts
+            command.extend(['CSAFE_SETPOWER_CMD', powerpace, 88])  # 88 = watts
 
         if program == None:
             program = 0
@@ -269,32 +269,32 @@ class pyrow(object):
         Converts and sends message to erg; receives, converts, and returns ergs response
         """
 
-        #Checks that enough time has passed since the last message was sent,
-        #if not program sleeps till time has passed
+        # Checks that enough time has passed since the last message was sent,
+        # if not program sleeps till time has passed
         now = datetime.datetime.now()
         delta = now - self.__lastsend
-        deltaraw = delta.seconds + delta.microseconds/1000000.
+        deltaraw = delta.seconds + delta.microseconds / 1000000.
         if deltaraw < MIN_FRAME_GAP:
             time.sleep(MIN_FRAME_GAP - deltaraw)
 
-        #convert message to byte array
+        # convert message to byte array
         csafe = csafe_cmd.write(message)
-        #sends message to erg and records length of message
+        # sends message to erg and records length of message
         length = self.erg.write(self.outEndpoint, csafe, timeout=2000)
-        #records time when message was sent
+        # records time when message was sent
         self.__lastsend = datetime.datetime.now()
 
         response = []
         while not response:
             try:
-                #recieves byte array from erg
+                # recieves byte array from erg
                 transmission = self.erg.read(self.inEndpoint, length, timeout=2000)
                 response = csafe_cmd.read(transmission)
             except Exception as e:
                 raise e
-                #Replace with error or let error trigger?
-                #No message was recieved back from erg
+                # Replace with error or let error trigger?
+                # No message was recieved back from erg
                 # return []
 
-        #convers byte array to response dictionary
+        # convers byte array to response dictionary
         return response

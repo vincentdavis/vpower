@@ -1,10 +1,11 @@
 from AbstractPowerCalculator import AbstractPowerCalculator
 from functions import interp
 
-
 '''
 Generic fluid trainer power calculator.
 '''
+
+
 class GenericFluidPowerCalculator(AbstractPowerCalculator):
     def __init__(self):
         super(GenericFluidPowerCalculator, self).__init__()
